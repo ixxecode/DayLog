@@ -1,15 +1,31 @@
-# | [ Dia 1 ]
+# | [ Dia 2 ]
 # | ~/calendar.py
 # | Archivo que contiene la logica del calendario interno.
 
 class CalendarManager():
     def __init__(self):
-        self.days = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"]
+        self.days = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"]
         self.index = 0
     
     # Obtener el dia actual
     def get_day(self):
         return self.days[self.index]
+    
+    def previous_day(self):
+        day = self.index - 1
+        if day == -1:
+            day = 6
+            return self.days[day]
+        else:
+            return self.days[day]
+    
+    def later_day(self):
+        day = self.index + 1
+        if day == 7:
+            day = 0
+            return self.days[day]
+        else:
+            return self.days[day]
     
     # Avanzar el dia
     def next_day(self):

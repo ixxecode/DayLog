@@ -1,17 +1,17 @@
-# | [ Dia 1 ]
+# | [ Dia 2 ]
 # | ~/main.py
 # | Archivo que contiene la interfaz principal.
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton
 from PySide6.QtCore import QSize 
 import sys
 
-from calendar import CalendarManager
+from panel_daily import PanelDaily
 
 class MainWindow(QMainWindow): 
     def __init__(self): 
         super().__init__()  
-        self.setFixedSize(QSize(300, 200)) 
+        self.setFixedSize(QSize(300, 150)) 
         self.setWindowTitle("DayLog")
 
         # Widget central
@@ -19,10 +19,8 @@ class MainWindow(QMainWindow):
         central_layout = QVBoxLayout()
         central_widget.setLayout(central_layout) 
 
-        # Label + Calendario
-        self.calendar = CalendarManager()
-        self.day = self.calendar.get_day()
-        self.tittle = QLabel(f"{self.day}")
+        # Panel Diario
+        self.panel = PanelDaily()
 
         # Botones de next, reset, y se crea su layout horizontal
         self.next_button = QPushButton("Next Day")
@@ -32,34 +30,15 @@ class MainWindow(QMainWindow):
         layout_button.addWidget(self.reset_button)
 
         # Conecto las señales de ambos botones
-        self.next_button.clicked.connect(self.next_day)
-        self.reset_button.clicked.connect(self.reset_week)
+        self.next_button.clicked.connect(self.panel.next_day)
+        self.reset_button.clicked.connect(self.panel.reset_week)
 
         # Agrego las cosas al layout central
-        central_layout.addWidget(self.tittle)
+        central_layout.addWidget(self.panel)
         central_layout.addLayout(layout_button)
 
         self.setCentralWidget(central_widget) 
-    
-    # Actualiza el label
-    def update_label(self):
-        self.day = self.calendar.get_day()
-        self.tittle.setText(self.day)
-
-    # Reinicia la semana
-    def reset_week(self):
-        self.calendar.reset_week()
-        self.update_label()
-
-    # Avanza al dia siquiente
-    def next_day(self):
-        dom = self.calendar.is_last_day()
-        if dom:
-            self.reset_week()
-        else:
-            self.calendar.next_day()
-            self.update_label()
-
+        
 if __name__ == "__main__": 
     app = QApplication(sys.argv) 
     window = MainWindow() 
