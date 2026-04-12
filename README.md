@@ -1,6 +1,6 @@
-# DayLog [v0.2]
+# DayLog [v0.3]
 
-Aplicación personal para registrar tareas diarias, enfocada en simplicidad y control manual del tiempo.
+Aplicación personal para registrar tareas diarias, enfocada en simplicidad, control manual del tiempo y persistencia de datos.
 
 ## Estructura actual
 
@@ -9,20 +9,10 @@ Contiene la ventana principal de la aplicación.
 
 - Crea la `MainWindow`
 - Integra el componente `PanelDaily`
-- Incluye botones para avanzar el día y reiniciar la semana
+- Incluye botón para avanzar el día
 - Conecta la interfaz con la lógica del panel
 
-### calendar.py
-Contiene la lógica del calendario interno.
-
-- Maneja una semana de 7 días (Lunes a Domingo)
-- Controla el día actual mediante un índice
-- Permite avanzar de día (`next_day`)
-- Permite reiniciar la semana (`reset_week`)
-- Proporciona:
-  - Día actual (`get_day`)
-  - Día anterior (`previous_day`)
-  - Día siguiente (`later_day`)
+---
 
 ### panel_daily.py
 Componente de interfaz que representa el estado diario.
@@ -34,18 +24,69 @@ Componente de interfaz que representa el estado diario.
 - Resalta visualmente el día actual
 - Se encarga de:
   - Actualizar la UI cuando cambia el estado
-  - Gestionar la interacción con el calendario
-- Actúa como puente entre la lógica (`CalendarManager`) y la interfaz
+  - Gestionar la interacción con el estado (`StateManager`)
+- Actúa como puente entre la lógica (`DayManager`) y la interfaz
 
-## Estado del proyecto
+---
 
-Actualmente la aplicación:
+### day_manager.py
+Encargado de la lógica del día actual.
 
+- Maneja una semana de 7 días (Lunes a Domingo)
+- Obtiene el día actual desde `StateManager`
+- Proporciona:
+  - Día actual (`get_day`)
+  - Día anterior (`previous_day`)
+  - Día siguiente (`later_day`)
+- Determina si es el último día de la semana
+
+---
+
+### state_manager.py
+Controlador principal del estado persistente.
+
+- Guarda y lee datos desde `state.json`
+- Mantiene:
+  - Día actual (`day`)
+  - Semana actual (`week`)
+- Se encarga de:
+  - Avanzar el día (`next_day`)
+  - Incrementar la semana automáticamente al completar un ciclo
+- Centraliza la persistencia para evitar reinicios al cerrar la app
+
+---
+
+### state.json
+Archivo de almacenamiento persistente.
+
+Ejemplo:
+
+```json
+{
+    "week": 0,
+    "day": 2
+}
+```
+
+### Estado del proyecto
+
+#### Actualmente la aplicación:
+
+- Mantiene el estado entre ejecuciones (persistencia)
 - Muestra el día actual junto con el anterior y el siguiente
 - Permite avanzar día a día
-- Reinicia la semana al llegar al final
-- Tiene un componente dedicado (`PanelDaily`) que centraliza la lógica visual del día
+- Incrementa automáticamente la semana al completar 7 días
+- Tiene separación clara entre:
+  - Estado (StateManager)
+  - Lógica (DayManager)
+  - Interfaz (PanelDaily)
 
-## Notas
+### Notas
 
-Este proyecto está diseñado como una herramienta personal, priorizando claridad, control y experimentación sobre complejidad o perfección.
+Este proyecto está diseñado como una herramienta personal, priorizando claridad, control y evolución progresiva.
+
+#### La implementación actual sienta las bases para futuras funcionalidades como:
+
+- Sistema completo de semanas
+- Registro de tareas por día
+- Análisis de hábitos

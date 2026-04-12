@@ -1,4 +1,4 @@
-# | [ Dia 2 ]
+# | [ Dia 3 ]
 # | ~/main.py
 # | Archivo que contiene la interfaz principal.
 
@@ -24,14 +24,11 @@ class MainWindow(QMainWindow):
 
         # Botones de next, reset, y se crea su layout horizontal
         self.next_button = QPushButton("Next Day")
-        self.reset_button = QPushButton("Reset Week")
         layout_button = QHBoxLayout()
         layout_button.addWidget(self.next_button)
-        layout_button.addWidget(self.reset_button)
 
         # Conecto las señales de ambos botones
         self.next_button.clicked.connect(self.panel.next_day)
-        self.reset_button.clicked.connect(self.panel.reset_week)
 
         # Agrego las cosas al layout central
         central_layout.addWidget(self.panel)
