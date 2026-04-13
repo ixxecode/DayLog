@@ -1,4 +1,4 @@
-# | [Dia 3]
+# | [Dia 4]
 # | ~/panel_daily.py
 # | Archivo que contiene la logica del panel diario
 
@@ -28,9 +28,9 @@ class PanelDaily(QWidget):
         # Layout principal
         layout = QVBoxLayout()
 
-        layout.addWidget(self.previous_tittle)
-        layout.addWidget(self.actual_tittle)
-        layout.addWidget(self.later_tittle)
+        layout.addWidget(self.previous_title)
+        layout.addWidget(self.actual_title)
+        layout.addWidget(self.later_title)
 
         # Guardamos el layout
         self.setLayout(layout)
@@ -50,8 +50,3 @@ class PanelDaily(QWidget):
         self.previous_title.setText(days["previous"])
         self.actual_title.setText(days["actual"])
         self.later_title.setText(days["later"])
-    
-    # Avanza el dia
-    def next_day(self):
-        self.state.next_day()
-        self.update_panel()
