@@ -1,4 +1,4 @@
-# | [ Dia 5 ]
+# | [ Dia 6 ]
 # | ~/main.py
 # | Archivo que contiene la interfaz principal.
 
@@ -6,16 +6,17 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, Q
 from PySide6.QtCore import QSize 
 import sys
 
-from state_manager import StateManager
-from panel_daily import PanelDaily
-from panel_title import PanelTitle
-from panel_task import PanelTask
+from manager.state import StateManager
+from panel.day import PanelDay
+from panel.title import PanelTitle
+from panel.task import PanelTask
+from data.styles import DARK_THEME
 
 class MainWindow(QMainWindow): 
     def __init__(self): 
         super().__init__()  
-        self.setFixedSize(QSize(400, 150)) 
-        self.setWindowTitle("DayLog")
+        self.setFixedSize(QSize(350, 200)) 
+        self.setWindowTitle("DayLog v1.0")
 
         # Widget central
         central_widget = QWidget()
@@ -23,13 +24,13 @@ class MainWindow(QMainWindow):
         central_widget.setLayout(central_layout) 
 
         # Panel Diario + Panel del titulo + estado actual + tareas
-        self.panel = PanelDaily()
+        self.panel = PanelDay()
         self.title = PanelTitle()
         self.state = StateManager()
         self.task = PanelTask()
 
         # Boton de next y creo su layout [horizontal]
-        self.next_button = QPushButton("Next Day")
+        self.next_button = QPushButton("Siguiente")
         layout_button = QHBoxLayout()
         layout_button.addWidget(self.next_button)
 
@@ -66,6 +67,7 @@ class MainWindow(QMainWindow):
         
 if __name__ == "__main__": 
     app = QApplication(sys.argv) 
+    app.setStyleSheet(DARK_THEME)
     window = MainWindow() 
     window.show() 
     sys.exit(app.exec())

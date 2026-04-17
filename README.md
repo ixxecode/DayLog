@@ -1,6 +1,7 @@
-# DayLog [v0.5]
+# DayLog [v1.0]
 
 Aplicación personal para registrar tareas diarias, enfocada en simplicidad, control manual del tiempo y persistencia de datos.
+
 
 ## Descripción
 
@@ -8,43 +9,36 @@ DayLog es una herramienta simple para llevar seguimiento del progreso diario, or
 
 El sistema está diseñado para ser claro, mantenible y fácil de extender a futuro.
 
-## Cambios recientes
-- Se agregó el sistema de tareas diarias (estructura de booleanos)
-- Implementación del guardado de tareas por día
-- Persistencia de semanas
-- Se definió el flujo principal de la aplicación:
-- guardado → avance de día → limpieza → actualización de UI
-- `MainWindow` consolida el rol de orquestador del sistema
 
-## Componentes principales
-- `StateManager` Maneja la persistencia del estado (día y semana)
-- `DayManager` Proporciona la lógica relacionada al día actual
-- `TaskManager` Maneja las tareas, su estado y persistencia
-- `PanelDaily` Muestra el día anterior, actual y siguiente
-- `PanelTitle` Muestra el título con día y semana
-- `MainWindow` Coordina la interacción entre estado, datos y UI
+## Cambios recientes
+
+- Se pulió la estructura general del proyecto
+- Mejora en la organización y claridad del código
+- Mejora en comentarios para mayor mantenibilidad
+- Ajustes en la interfaz para una experiencia más consistente
+- Implementación de tema oscuro (QSS)
+- Refinamiento general del flujo de la aplicación
+- Persistencia real en el sistema del usuario (`~/.daylog`)
+- Generación de ejecutable usando PyInstaller
+
 
 ## Estructura
-```
-.
-├── main.py
-├── panel_daily.py
-├── panel_title.py
-├── day_manager.py
-├── state_manager.py
-├── title_manager.py
-├── task_manager.py
-└── state.json
+```Bash
+DayLog/
+├── main.py # Archivo principal.
+├── panel/ # Archivos de UI.
+├── manager/ # Lógica de negocio.
+├── data/ # Datos generales.
+├── build/ # Artefactos de build.
+└── daylog # <<< Ejecutable >>>
 ```
 
-## Estado actual
-- Persistencia de estado (día y semana)
-- Sistema de tareas funcional
-- Guardado por día y por semana
-- Flujo de aplicación definido y estable
-- UI básica pero clara
-- Separación de responsabilidades
 
-## Próximamente
-- *Mejorar estructura interna*
-- *Crear ejecutable de la aplicación*
+## Cómo ejecutar
+
+1. Abrir una terminal dentro de la carpeta del proyecto
+2. Dar permisos de ejecución al launcher: `chmod +x daylog`
+
+3. Ejecutar la aplicación:
+- Doble clic en el archivo daylog
+- o desde terminal ejecutar: `./daylog`
