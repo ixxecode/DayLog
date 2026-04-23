@@ -1,7 +1,6 @@
-# DayLog [v1.0]
+# DayLog v1.1
 
 Aplicación personal para registrar tareas diarias, enfocada en simplicidad, control manual del tiempo y persistencia de datos.
-
 
 ## Descripción
 
@@ -9,36 +8,39 @@ DayLog es una herramienta simple para llevar seguimiento del progreso diario, or
 
 El sistema está diseñado para ser claro, mantenible y fácil de extender a futuro.
 
+## Demo
+
+![DayLog Demo](assets/demo.gif)
 
 ## Cambios recientes
 
-- Se pulió la estructura general del proyecto
-- Mejora en la organización y claridad del código
-- Mejora en comentarios para mayor mantenibilidad
-- Ajustes en la interfaz para una experiencia más consistente
-- Implementación de tema oscuro (QSS)
-- Refinamiento general del flujo de la aplicación
-- Persistencia real en el sistema del usuario (`~/.daylog`)
-- Generación de ejecutable usando PyInstaller
-
+* Implementación de un contador visual de tareas
+* Separación clara entre lógica de conteo (`CounterManager`) y UI (`PanelCounter`)
+* Refinamiento del layout para soportar el nuevo panel
+* Ajustes menores en estructura para mantener consistencia
 
 ## Estructura
-```Bash
+
+```bash
 DayLog/
-├── main.py # Archivo principal.
-├── panel/ # Archivos de UI.
-├── manager/ # Lógica de negocio.
-├── data/ # Datos generales.
-├── build/ # Artefactos de build.
+├── main.py # Archivo principal
+├── panel/ # UI (incluye contador)
+├── manager/ # Lógica de negocio (incluye contador)
+├── data/ # Datos generales
+├── assets/ # Datos de documentacion
+├── build/ # Artefactos de build (PyInstaller)
 └── daylog # <<< Ejecutable >>>
 ```
-
 
 ## Cómo ejecutar
 
 1. Abrir una terminal dentro de la carpeta del proyecto
-2. Dar permisos de ejecución al launcher: `chmod +x daylog`
+
+2. Dar permisos de ejecución al launcher:
+   `chmod +x daylog`
 
 3. Ejecutar la aplicación:
-- Doble clic en el archivo daylog
-- o desde terminal ejecutar: `./daylog`
+
+* Doble clic en el archivo `daylog`
+* o desde terminal:
+  `./daylog`

@@ -1,4 +1,4 @@
-# | [ Dia 6 ]
+# | [ Dia 7 ]
 # | ~/main.py
 # | Archivo que contiene la interfaz principal.
 
@@ -11,23 +11,25 @@ from panel.day import PanelDay
 from panel.title import PanelTitle
 from panel.task import PanelTask
 from data.styles import DARK_THEME
+from panel.counter import PanelCounter
 
 class MainWindow(QMainWindow): 
     def __init__(self): 
         super().__init__()  
         self.setFixedSize(QSize(350, 200)) 
-        self.setWindowTitle("DayLog v1.0")
+        self.setWindowTitle("DayLog v1.1")
 
         # Widget central
         central_widget = QWidget()
         central_layout = QVBoxLayout() #[vertical]
         central_widget.setLayout(central_layout) 
 
-        # Panel Diario + Panel del titulo + estado actual + tareas
+        # Panel Diario + Panel del titulo + estado actual + tareas + contador
         self.panel = PanelDay()
         self.title = PanelTitle()
         self.state = StateManager()
         self.task = PanelTask()
+        self.counter = PanelCounter()
 
         # Boton de next y creo su layout [horizontal]
         self.next_button = QPushButton("Siguiente")
@@ -42,8 +44,9 @@ class MainWindow(QMainWindow):
 
         # Layout superior + panel diario [Horizontal]
         layout_principal = QHBoxLayout()
-        layout_principal.addLayout(left_layout)
-        layout_principal.addWidget(self.task)
+        layout_principal.addLayout(left_layout, 1)
+        layout_principal.addWidget(self.task, 1)
+        layout_principal.addWidget(self.counter, 0)
 
         # Conecto la señal del boton
         self.next_button.clicked.connect(self.next_day)
@@ -64,6 +67,7 @@ class MainWindow(QMainWindow):
         self.task.clear_tasks()
         self.panel.update_panel()
         self.title.update_title()
+        self.counter.update_counter()
         
 if __name__ == "__main__": 
     app = QApplication(sys.argv) 
