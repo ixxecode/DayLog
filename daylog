@@ -1,2 +1,8 @@
 #!/bin/bash
-./build/dist/main
+
+# [AVISO] Si se cambia el nombre del ejecutable, esta ruta debe actualizarse manualmente.
+# [AVISO] El ejecutable se encuentra en: ./build/dist/
+# [AVISO] Para usar un acceso directo (.desktop), puede ser necesario usar una ruta absoluta.
+
+./build/dist/daylog
+#/home/user/carpeta/DayLog/build/dist/daylog

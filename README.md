@@ -1,4 +1,4 @@
-# DayLog v1.1
+# DayLog
 
 Aplicación personal para registrar tareas diarias, enfocada en simplicidad, control manual del tiempo y persistencia de datos.
 
@@ -6,13 +6,23 @@ Aplicación personal para registrar tareas diarias, enfocada en simplicidad, con
 
 DayLog es una herramienta simple para llevar seguimiento del progreso diario, organizada por días y semanas.
 
-El sistema está diseñado para ser claro, mantenible y fácil de extender a futuro.
-
 ## Demo
 
 ![DayLog Demo](assets/demo.gif)
 
-## Cambios recientes
+## Historial de versiones
+
+### [1.1.1] Correxiones al launcher
+
+- Se corrigio la ruta del launcher (`./build/dist/main` -> `./build/dist/daylog`).
+- Se agrego una advertencia en el launcher en forma de comentario con la etiqueta `AVISO`.
+
+#### AVISO
+
+- Si se cambia el nombre del ejecutable, es necesario actualizar manualmente la ruta en el launcher (`./build/dist/...`).
+- El error ocurre cuando el nombre del archivo en `dist` no coincide con el definido en el script.
+
+### [1.1]
 
 * Implementación de un contador visual de tareas
 * Separación clara entre lógica de conteo (`CounterManager`) y UI (`PanelCounter`)
