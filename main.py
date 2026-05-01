@@ -57,7 +57,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(central_widget) 
 
     def next_day(self):
-        state = self.state.get_state()
+        state = self.state.load()
 
         week = state["week"]
         day = state["day"]

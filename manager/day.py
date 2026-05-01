@@ -11,7 +11,7 @@ class DayManager():
     
     # [Interna] Permite obtener el indice desde StateManager
     def _get_index(self):
-        state = self.state.get_state()
+        state = self.state.load()
         return state["day"]
     
     # Obtener el dia actual

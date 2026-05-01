@@ -6,21 +6,27 @@ Aplicación personal para registrar tareas diarias, enfocada en simplicidad, con
 
 DayLog es una herramienta simple para llevar seguimiento del progreso diario, organizada por días y semanas.
 
-## Demo
-
-![DayLog Demo](assets/demo.gif)
-
 ## Historial de versiones
 
-### [1.1.1] Correxiones al launcher
+### [1.2] Implementación inicial del sistema de ciclos
 
-- Se corrigio la ruta del launcher (`./build/dist/main` -> `./build/dist/daylog`).
-- Se agrego una advertencia en el launcher en forma de comentario con la etiqueta `AVISO`.
+* Se agregó una nueva arquitectura basada en ciclos (`cycle_X`)
+* Separación entre estado global y estado interno de cada ciclo
+* Implementación inicial de `CycleManager`
+* Creación automática de carpetas persistentes dentro de `~/.daylog`
+* Implementación de `state_week.json` para almacenar la semana actual de cada ciclo
+* Separación de responsabilidades entre manejo de estado (`StateManager`) y manejo de ciclos (`CycleManager`)
+* Preparación de la estructura para futuras funciones de edición de tareas
 
-#### AVISO
+### [1.1.1] Correcciones al launcher
 
-- Si se cambia el nombre del ejecutable, es necesario actualizar manualmente la ruta en el launcher (`./build/dist/...`).
-- El error ocurre cuando el nombre del archivo en `dist` no coincide con el definido en el script.
+* Se corrigió la ruta del launcher (`./build/dist/main` -> `./build/dist/daylog`)
+* Se agregó una advertencia en el launcher en forma de comentario con la etiqueta `AVISO`
+
+#### > AVISO <
+
+* Si se cambia el nombre del ejecutable, es necesario actualizar manualmente la ruta en el launcher (`./build/dist/...`)
+* El error ocurre cuando el nombre del archivo en `dist` no coincide con el definido en el script
 
 ### [1.1]
 
@@ -33,24 +39,33 @@ DayLog es una herramienta simple para llevar seguimiento del progreso diario, or
 
 ```bash
 DayLog/
-├── main.py # Archivo principal
-├── panel/ # UI (incluye contador)
-├── manager/ # Lógica de negocio (incluye contador)
-├── data/ # Datos generales
-├── assets/ # Datos de documentacion
-├── build/ # Artefactos de build (PyInstaller)
-└── daylog # <<< Ejecutable >>>
+├── main.py              # Archivo principal
+├── test.py              # Inicializador temporal del sistema
+├── panel/               # UI
+├── manager/             # Lógica de negocio
+├── assets/              # Recursos y documentación
+├── build/               # Artefactos de build (PyInstaller)
+└── daylog               # Ejecutable (v1.1)
 ```
 
 ## Cómo ejecutar
 
+Actualmente el ejecutable (`daylog`) aún no incluye el nuevo sistema de ciclos implementado en la versión 1.2.
+
+Para ejecutar correctamente esta versión:
+
 1. Abrir una terminal dentro de la carpeta del proyecto
 
-2. Dar permisos de ejecución al launcher:
-   `chmod +x daylog`
+2. Ejecutar primero el inicializador temporal:
 
-3. Ejecutar la aplicación:
+```bash
+python test.py
+```
 
-* Doble clic en el archivo `daylog`
-* o desde terminal:
-  `./daylog`
+Esto creará automáticamente la carpeta persistente `~/.daylog` y la estructura básica del sistema de ciclos.
+
+3. Luego ejecutar la aplicación:
+
+```bash
+python main.py
+```

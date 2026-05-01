@@ -5,48 +5,50 @@
 import json
 from pathlib import Path
 
-class StateManager():
+
+class StateManager:
     def __init__(self):
-        # Carpeta persistente del usuario
-        base_dir = Path.home() / ".daylog"
-        base_dir.mkdir(exist_ok=True) 
+        self.base_dir = Path.home() / ".daylog"
+        self.base_dir.mkdir(exist_ok=True)
 
-        # Path de state.json
-        self._path = base_dir / "state.json"
+        self.path = self.base_dir / "state.json"
 
-        if not self._path.exists():
-            self._save({"week": 0, "day": 0})
-    
-    # [Interna] Permite leer el path
-    def _load(self):
-        with open(self._path, "r") as f:
-            return json.load(f)
+        self._initialize()
 
-    # [Interna] Permite guardar la informacion "data" en el path
-    def _save(self, data):
-        with open(self._path, "w") as f:
-            json.dump(data, f, indent=4)
-    
-    # Obteniendo la informacion de state.json y guardandola en un diccionario
-    def get_state(self) -> dict:
-        return self._load()
+    def _initialize(self):
+        """
+        Crea state.json si no existe.
+        """
 
-    # Avanza el dia y en caso de llegar al limite reinicia y incrementa la semana
-    def next_day(self):
-        data = self._load()
+        if not self.path.exists():
+            self.save({
+                "cycle": 1,
+                "day": 0
+            })
 
-        day = data["day"]
-        week = data["week"]
+    def load(self) -> dict:
+        """
+        Lee y devuelve el contenido de state.json
+        """
 
-        day += 1
+        with open(self.path, "r") as file:
+            return json.load(file)
 
-        if day > 6:
-            day = 0
-            week += 1
+    def save(self, data: dict):
+        """
+        Sobrescribe state.json
+        """
 
-        self._save({
-            "week": week,
-            "day": day
-        })
+        with open(self.path, "w") as file:
+            json.dump(data, file, indent=4)
 
-        return week, day
+    def update(self, **kwargs):
+        """
+        Actualiza claves específicas sin perder el resto.
+        """
+
+        data = self.load()
+
+        data.update(kwargs)
+
+        self.save(data)

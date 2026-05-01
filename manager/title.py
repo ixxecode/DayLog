@@ -4,16 +4,16 @@
 
 from manager.state import StateManager
 from manager.day import DayManager
+from manager.cycle import CycleManager
 
 class TitleManager():
     def __init__(self):
 
-        # Guardo el estado y el dia
-        self.state_manager = StateManager()
-        self.day_manager = DayManager()
+        # Obtenemos el dia y ciclo (para acceder a la semana)
+        self.day = DayManager()
+        self.cycle = CycleManager()
 
     def message(self):
-        state = self.state_manager.get_state() # Guardo el estado actual
-        day = self.day_manager.get_day() # Guardo el dia actual
-        week = state["week"] # Obtengo la semana actual
+        day = self.day.get_day() # Obtener el dia actual
+        week = self.cycle.current_week() # Obtener la semana actual
         return f"Dia {day}\nSemana {week}"
