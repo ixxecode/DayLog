@@ -1,14 +1,12 @@
-# | [ Dia 6 ]
+# | [ Dia 8 ]
 # | ~/manager/title.py
 # | Archivo que lee el estado actual de la semana
 
-from manager.state import StateManager
 from manager.day import DayManager
 from manager.cycle import CycleManager
 
 class TitleManager():
     def __init__(self):
-
         # Obtenemos el dia y ciclo (para acceder a la semana)
         self.day = DayManager()
         self.cycle = CycleManager()

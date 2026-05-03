@@ -2,11 +2,22 @@
 
 Aplicación personal para registrar tareas diarias, enfocada en simplicidad, control manual del tiempo y persistencia de datos.
 
-## Descripción
-
-DayLog es una herramienta simple para llevar seguimiento del progreso diario, organizada por días y semanas.
-
 ## Historial de versiones
+
+### [1.3] Integración del sistema de ciclos
+
+* Integración del sistema de ciclos dentro del flujo principal de la aplicación
+* Inicialización automática de la estructura persistente al iniciar `main.py`
+* Eliminación de la dependencia de `test.py` para crear la estructura interna
+* Implementación del avance automático de semanas al finalizar un ciclo semanal
+* Creación automática de nuevos archivos `week_X.json`
+* Refactorización parcial de la lógica de actualización mediante `UpdateManager`
+* Separación más clara entre UI, persistencia y coordinación interna
+* Adaptación de `TaskManager` para trabajar con rutas dinámicas según el ciclo actual
+* Reorganización interna de persistencia usando:
+
+  * `state.json` para estado global
+  * `state_week.json` para progreso interno de cada ciclo
 
 ### [1.2] Implementación inicial del sistema de ciclos
 
@@ -39,8 +50,7 @@ DayLog es una herramienta simple para llevar seguimiento del progreso diario, or
 
 ```bash
 DayLog/
-├── main.py              # Archivo principal
-├── test.py              # Inicializador temporal del sistema
+├── main.py              # Archivo principal (v1.3)
 ├── panel/               # UI
 ├── manager/             # Lógica de negocio
 ├── assets/              # Recursos y documentación
@@ -50,21 +60,13 @@ DayLog/
 
 ## Cómo ejecutar
 
-Actualmente el ejecutable (`daylog`) aún no incluye el nuevo sistema de ciclos implementado en la versión 1.2.
+Actualmente el ejecutable (`daylog`) aún no incluye los cambios internos implementados en la versión 1.3.
 
-Para ejecutar correctamente esta versión:
+Para ejecutar correctamente la versión actual:
 
 1. Abrir una terminal dentro de la carpeta del proyecto
 
-2. Ejecutar primero el inicializador temporal:
-
-```bash
-python test.py
-```
-
-Esto creará automáticamente la carpeta persistente `~/.daylog` y la estructura básica del sistema de ciclos.
-
-3. Luego ejecutar la aplicación:
+2. Ejecutar la aplicación desde `main.py`:
 
 ```bash
 python main.py

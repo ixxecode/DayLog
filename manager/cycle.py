@@ -55,3 +55,21 @@ class CycleManager:
             data = json.load(file)
 
         return data["week"]
+    
+    def current_weeks_path(self) -> Path:
+        """
+        Devuelve la carpeta weeks del ciclo actual.
+        """
+
+        return self.current_cycle_path() / "weeks"
+    
+    def next_week(self):
+        path = self.current_cycle_path() / "state_week.json"
+
+        with open(path, "r") as file:
+            data = json.load(file)
+
+        data["week"] += 1
+
+        with open(path, "w") as file:
+            json.dump(data, file, indent=4)

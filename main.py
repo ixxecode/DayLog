@@ -1,4 +1,4 @@
-# | [ Dia 7 ]
+# | [ Dia 8 ]
 # | ~/main.py
 # | Archivo que contiene la interfaz principal.
 
@@ -6,12 +6,15 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, Q
 from PySide6.QtCore import QSize 
 import sys
 
-from manager.state import StateManager
 from panel.day import PanelDay
 from panel.title import PanelTitle
 from panel.task import PanelTask
 from data.styles import DARK_THEME
 from panel.counter import PanelCounter
+from manager.update import UpdateManager
+
+from manager.cycle import CycleManager
+
 
 class MainWindow(QMainWindow): 
     def __init__(self): 
@@ -19,17 +22,21 @@ class MainWindow(QMainWindow):
         self.setFixedSize(QSize(350, 200)) 
         self.setWindowTitle("DayLog v1.1")
 
+        # Inicializador de la app
+        self.cycle = CycleManager()
+        self.cycle.initialize_cycle()
+
         # Widget central
         central_widget = QWidget()
         central_layout = QVBoxLayout() #[vertical]
         central_widget.setLayout(central_layout) 
 
-        # Panel Diario + Panel del titulo + estado actual + tareas + contador
+        # Diario + titulo + tareas + contador + actualizador
         self.panel = PanelDay()
         self.title = PanelTitle()
-        self.state = StateManager()
         self.task = PanelTask()
         self.counter = PanelCounter()
+        self.update_manager = UpdateManager()
 
         # Boton de next y creo su layout [horizontal]
         self.next_button = QPushButton("Siguiente")
@@ -57,13 +64,10 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(central_widget) 
 
     def next_day(self):
-        state = self.state.load()
+        tasks = self.task.get_states()
 
-        week = state["week"]
-        day = state["day"]
+        self.update_manager.next_day(tasks)
 
-        self.task.save_tasks(week, day)
-        self.state.next_day()
         self.task.clear_tasks()
         self.panel.update_panel()
         self.title.update_title()

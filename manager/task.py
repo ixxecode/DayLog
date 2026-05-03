@@ -1,18 +1,20 @@
-# | [ Dia 6 ]
+# | [ Dia 8 ]
 # | ~/manager/task.py
 # | Maneja la logica del dia actual y guarda las tareas
 
 import json
-from pathlib import Path
+
+from manager.cycle import CycleManager
 
 
 class TaskManager:
     def __init__(self):
-        # Carpeta persistente del usuario
-        base_dir = Path.home() / ".daylog"
+        self.cycle = CycleManager()
 
         # Carpeta weeks dentro de .daylog
-        self.base_path = base_dir / "weeks"
+        self.base_path = self.cycle.current_cycle_path()
+
+        self.weeks_folder = self.base_path / "weeks"
     
     # [Interna] Asegura que exista la carpeta de weeks
     def _ensure_directory(self):
@@ -20,7 +22,7 @@ class TaskManager:
 
     # [Interna] Devuelve el path del archivo de una semana
     def _get_week_path(self, week):
-        return self.base_path / f"week_{week}.json"
+        return self.weeks_folder / f"week_{week}.json"
 
     # [Interna] Crea la estructura vacia de una semana (7 dias)
     def _create_empty_week(self):
@@ -49,3 +51,10 @@ class TaskManager:
         data = self.load_week(week)
         data[day] = tasks
         self.save_week(week, data)
+
+    def current_week(self):
+        path = self.base_path / "state_week.json"
+
+        with open(path, "r") as file:
+            week = json.load(file)
+        return str(week["week"])

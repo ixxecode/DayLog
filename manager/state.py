@@ -1,4 +1,4 @@
-# | [ Dia 6 ]
+# | [ Dia 8 ]
 # | ~/manager/state.py
 # | Controlador principal del estado, se encarga de guardar el presente (dia y semana)
 
@@ -52,3 +52,17 @@ class StateManager:
         data.update(kwargs)
 
         self.save(data)
+
+    def next_day(self):
+        data = self.load()
+
+        day = data["day"]
+
+        day += 1
+
+        if day > 6:
+            day = 0
+
+        self.update(day=day)
+
+        return day
